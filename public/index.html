@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>💰 Depensify - Gestionnaire de Dépenses Familiales</title>
+
+  <!-- Tailwind CSS + DaisyUI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.7/dist/full.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- Custom Styles -->
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    }
+
+    .glass-effect {
+      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .chart-container {
+      position: relative;
+      height: 300px;
+      width: 100%;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s ease-out;
+    }
+  </style>
+</head>
+
+<body class="gradient-bg min-h-screen">
+  <div id="root"></div>
+
+  <!-- React + ReactDOM from CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Chart.js for charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Composants modulaires -->
+  <script src="components/Auth.js"></script>
+  <script src="components/Navigation.js"></script>
+  <script src="components/ExpenseComponents.js"></script>
+  <script src="views/AdminView.js"></script>
+  <script src="views/ExpensesView.js"></script>
+  <script src="views/FamilyView.js"></script>
+
+  <!-- App principale -->
+  <script>
+    // Configuration et constantes
+    const { useState, useEffect, useRef, useMemo } = React;
+
+    const CATEGORIES = ['Alimentation', 'Transport', 'Restauration', 'Divertissement', 'Santé', 'Shopping', 'Éducation', 'Divers'];
+    const CATEGORY_COLORS = {
+      'Alimentation': '#ef4444',
+      'Transport': '#3b82f6',
+      'Restauration': '#f59e0b',
+      'Divertissement': '#8b5cf6',
+      'Santé': '#10b981',
+      'Shopping': '#ec4899',
+      'Éducation': '#6366f1',
+      'Divers': '#64748b'
+    };
+
+    // Fonction utilitaire pour formater les montants
+    const fmt = (amount) => new Intl.NumberFormat('fr-FR', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(amount);
+
+    // Application principale
+    function App() {
+      const [token, setToken] = useState(localStorage.getItem('token'));
+      const [user, setUser] = useState(null);
+      const [currentView, setCurrentView] = useState('expenses'); // 'expenses' ou 'admin'
+      const [loading, setLoading] = useState(true);
+
+      // Vérifier le token au démarrage
+      useEffect(() => {
+        if (token) {
+          fetch('/api/me', {
+            headers: { 'Authorization': `Bearer ${token}` }
+          })
+            .then(res => res.json())
+            .then(userData => {
+              if (userData.id) {
+                setUser(userData);
+              } else {
+                logout();
+              }
+            })
+            .catch(() => logout())
+            .finally(() => setLoading(false));
+        } else {
+          setLoading(false);
+        }
+      }, [token]);
+
+      function login(token, userData) {
+        localStorage.setItem('token', token);
+        setToken(token);
+        setUser(userData);
+      }
+
+      function logout() {
+        localStorage.removeItem('token');
+        setToken(null);
+        setUser(null);
+        setCurrentView('expenses');
+      }
+
+      if (loading) {
+        return React.createElement('div', { className: 'min-h-screen flex items-center justify-center' },
+          React.createElement('div', { className: 'text-center' },
+            React.createElement('span', { className: 'loading loading-spinner loading-lg text-primary' }),
+            React.createElement('p', { className: 'text-white mt-4 text-lg' }, 'Chargement...')
+          )
+        );
+      }
+
+      if (!user) {
+        return React.createElement(AuthPage, { onLogin: login });
+      }
+
+      console.log('User data:', user); // Debug
+      console.log('Current view:', currentView); // Debug
+
+      return React.createElement('div', { className: 'min-h-screen' },
+        // Navigation
+        React.createElement(Navigation, {
+          user,
+          currentView,
+          setCurrentView,
+          onLogout: logout
+        }),
+
+        // Contenu principal
+        React.createElement('main', { className: 'container mx-auto p-4' },
+          currentView === 'admin' && user.isAdmin
+            ? React.createElement(AdminView, { user, token })
+            : currentView === 'family'
+            ? React.createElement(FamilyView, { user, token })
+            : React.createElement(ExpensesView, { user, token })
+        )
+      );
+    }
+
+    // Rendre l'application
+    ReactDOM.render(React.createElement(App), document.getElementById('root'));
+  </script>
+</body>
+
+</html>

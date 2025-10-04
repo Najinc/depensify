@@ -83,7 +83,7 @@ function FamilyView({ user, token }) {
     return React.createElement('div', { className: 'modal modal-open' },
       React.createElement('div', { className: 'modal-box' },
         React.createElement('h3', { className: 'font-bold text-lg mb-4' }, '🏠 Créer une famille'),
-        
+
         React.createElement('form', { onSubmit: handleSubmit },
           React.createElement('div', { className: 'form-control mb-4' },
             React.createElement('label', { className: 'label' },
@@ -93,7 +93,7 @@ function FamilyView({ user, token }) {
               type: 'text',
               className: 'input input-bordered',
               value: formData.name,
-              onChange: (e) => setFormData({...formData, name: e.target.value}),
+              onChange: (e) => setFormData({ ...formData, name: e.target.value }),
               required: true,
               placeholder: 'Ma Famille'
             })
@@ -106,7 +106,7 @@ function FamilyView({ user, token }) {
             React.createElement('textarea', {
               className: 'textarea textarea-bordered',
               value: formData.description,
-              onChange: (e) => setFormData({...formData, description: e.target.value}),
+              onChange: (e) => setFormData({ ...formData, description: e.target.value }),
               placeholder: 'Description de votre famille...'
             })
           ),
@@ -118,7 +118,7 @@ function FamilyView({ user, token }) {
                 type: 'checkbox',
                 className: 'checkbox',
                 checked: formData.allowMemberInvites,
-                onChange: (e) => setFormData({...formData, allowMemberInvites: e.target.checked})
+                onChange: (e) => setFormData({ ...formData, allowMemberInvites: e.target.checked })
               })
             )
           ),
@@ -130,7 +130,7 @@ function FamilyView({ user, token }) {
             React.createElement('select', {
               className: 'select select-bordered',
               value: formData.defaultMemberRole,
-              onChange: (e) => setFormData({...formData, defaultMemberRole: e.target.value})
+              onChange: (e) => setFormData({ ...formData, defaultMemberRole: e.target.value })
             },
               React.createElement('option', { value: 'member' }, 'Membre'),
               React.createElement('option', { value: 'viewer' }, 'Observateur')
@@ -190,7 +190,7 @@ function FamilyView({ user, token }) {
     return React.createElement('div', { className: 'modal modal-open' },
       React.createElement('div', { className: 'modal-box' },
         React.createElement('h3', { className: 'font-bold text-lg mb-4' }, '👨‍👩‍👧‍👦 Rejoindre une famille'),
-        
+
         React.createElement('form', { onSubmit: handleSubmit },
           React.createElement('div', { className: 'form-control mb-6' },
             React.createElement('label', { className: 'label' },
@@ -346,7 +346,7 @@ function FamilyOverview({ family, user, token, loadFamilyDetails }) {
           ),
           React.createElement('div', { className: 'flex justify-between' },
             React.createElement('span', { className: 'text-base-content/70' }, 'Créée le:'),
-            React.createElement('span', { className: 'text-white font-semibold' }, 
+            React.createElement('span', { className: 'text-white font-semibold' },
               new Date(family.createdAt).toLocaleDateString('fr-FR')
             )
           )
@@ -374,11 +374,11 @@ function FamilyOverview({ family, user, token, loadFamilyDetails }) {
       React.createElement('div', { className: 'card-body' },
         React.createElement('h2', { className: 'card-title text-white mb-4' }, '🔐 Vos permissions'),
         React.createElement('div', { className: 'grid grid-cols-2 md:grid-cols-4 gap-4' },
-          Object.entries(family.myPermissions || {}).map(([key, value]) => 
-            React.createElement('div', { 
+          Object.entries(family.myPermissions || {}).map(([key, value]) =>
+            React.createElement('div', {
               key,
               className: `badge ${value ? 'badge-success' : 'badge-error'} p-3`
-            }, 
+            },
               `${value ? '✅' : '❌'} ${key.replace('can', '').replace(/([A-Z])/g, ' $1').trim()}`
             )
           )
@@ -443,7 +443,7 @@ function FamilyMembers({ family, user, token, loadFamilyDetails, createToast }) 
     React.createElement('div', { className: 'card glass-effect shadow-xl' },
       React.createElement('div', { className: 'card-body' },
         React.createElement('h2', { className: 'card-title text-white mb-6' }, '👥 Membres de la famille'),
-        
+
         React.createElement('div', { className: 'overflow-x-auto' },
           React.createElement('table', { className: 'table table-zebra' },
             React.createElement('thead', null,
@@ -455,7 +455,7 @@ function FamilyMembers({ family, user, token, loadFamilyDetails, createToast }) 
               )
             ),
             React.createElement('tbody', null,
-              family.members.map(member => 
+              family.members.map(member =>
                 React.createElement('tr', { key: member.id },
                   React.createElement('td', null,
                     React.createElement('div', { className: 'flex items-center gap-3' },
@@ -471,7 +471,7 @@ function FamilyMembers({ family, user, token, loadFamilyDetails, createToast }) 
                     )
                   ),
                   React.createElement('td', null,
-                    React.createElement('div', { className: `badge ${member.role === 'admin' ? 'badge-primary' : member.role === 'member' ? 'badge-secondary' : 'badge-ghost'}` }, 
+                    React.createElement('div', { className: `badge ${member.role === 'admin' ? 'badge-primary' : member.role === 'member' ? 'badge-secondary' : 'badge-ghost'}` },
                       member.role
                     )
                   ),
@@ -526,7 +526,7 @@ function RoleModal({ member, onClose, onUpdate }) {
       React.createElement('h3', { className: 'font-bold text-lg mb-4' },
         `👤 Modifier le rôle de ${member.username}`
       ),
-      
+
       React.createElement('form', { onSubmit: handleSubmit },
         React.createElement('div', { className: 'form-control mb-4' },
           React.createElement('label', { className: 'label' },
@@ -628,7 +628,7 @@ function FamilySettings({ family, user, token, loadFamilyDetails, createToast })
   return React.createElement('div', { className: 'card glass-effect shadow-xl' },
     React.createElement('div', { className: 'card-body' },
       React.createElement('h2', { className: 'card-title text-white mb-6' }, '⚙️ Paramètres de la famille'),
-      
+
       React.createElement('form', { onSubmit: saveSettings },
         React.createElement('div', { className: 'form-control mb-4' },
           React.createElement('label', { className: 'label' },
@@ -638,7 +638,7 @@ function FamilySettings({ family, user, token, loadFamilyDetails, createToast })
             type: 'text',
             className: 'input input-bordered',
             value: settings.name,
-            onChange: (e) => setSettings({...settings, name: e.target.value}),
+            onChange: (e) => setSettings({ ...settings, name: e.target.value }),
             required: true
           })
         ),
@@ -650,7 +650,7 @@ function FamilySettings({ family, user, token, loadFamilyDetails, createToast })
           React.createElement('textarea', {
             className: 'textarea textarea-bordered',
             value: settings.description,
-            onChange: (e) => setSettings({...settings, description: e.target.value}),
+            onChange: (e) => setSettings({ ...settings, description: e.target.value }),
             placeholder: 'Description de votre famille...'
           })
         ),
@@ -662,7 +662,7 @@ function FamilySettings({ family, user, token, loadFamilyDetails, createToast })
               type: 'checkbox',
               className: 'checkbox',
               checked: settings.allowMemberInvites,
-              onChange: (e) => setSettings({...settings, allowMemberInvites: e.target.checked})
+              onChange: (e) => setSettings({ ...settings, allowMemberInvites: e.target.checked })
             })
           )
         ),
@@ -674,7 +674,7 @@ function FamilySettings({ family, user, token, loadFamilyDetails, createToast })
           React.createElement('select', {
             className: 'select select-bordered',
             value: settings.defaultMemberRole,
-            onChange: (e) => setSettings({...settings, defaultMemberRole: e.target.value})
+            onChange: (e) => setSettings({ ...settings, defaultMemberRole: e.target.value })
           },
             React.createElement('option', { value: 'member' }, 'Membre'),
             React.createElement('option', { value: 'viewer' }, 'Observateur')

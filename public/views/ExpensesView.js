@@ -1,4 +1,7 @@
-// Vue principale des dépenses
+/**
+ * Vue principale des dépenses
+ * Gère l'affichage des dépenses personnelles et familiales avec permissions
+ */
 function ExpensesView({ user, token }) {
   const [expenses, setExpenses] = useState([]);
   const [familyExpenses, setFamilyExpenses] = useState([]);
@@ -6,7 +9,7 @@ function ExpensesView({ user, token }) {
   const [familyPermissions, setFamilyPermissions] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
-  const [viewMode, setViewMode] = useState('personal'); // 'personal' ou 'family'
+  const [viewMode, setViewMode] = useState('personal');
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
   const [loading, setLoading] = useState(true);
@@ -135,13 +138,9 @@ function ExpensesView({ user, token }) {
     return false;
   }
 
-  function showToast(message, type) {
-    const toast = document.createElement('div');
-    toast.className = 'toast toast-top toast-end';
-    const alertClass = type === 'success' ? 'alert-success' : type === 'error' ? 'alert-error' : 'alert-warning';
-    toast.innerHTML = `<div class="alert ${alertClass}"><span>${message}</span></div>`;
-    document.body.appendChild(toast);
-    setTimeout(() => toast.remove(), 3000);
+  function openEditModal(expense) {
+    setEditingExpense(expense);
+    setShowModal(true);
   }
 
   // Déterminer les dépenses à afficher

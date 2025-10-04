@@ -158,8 +158,8 @@
           currentView === 'admin' && user.isAdmin
             ? React.createElement(AdminView, { user, token })
             : currentView === 'family'
-            ? React.createElement(FamilyView, { user, token })
-            : React.createElement(ExpensesView, { user, token })
+              ? React.createElement(FamilyView, { user, token })
+              : React.createElement(ExpensesView, { user, token })
         )
       );
     }

@@ -24,7 +24,7 @@ function Navigation({ user, currentView, setCurrentView, onLogout }) {
           React.createElement('button', {
             onClick: () => setCurrentView('expenses'),
             className: `btn btn-ghost ${currentView === 'expenses' ? 'btn-active' : ''}`
-          }, 
+          },
             React.createElement('svg', { className: 'w-5 h-5', fill: 'currentColor', viewBox: '0 0 24 24' },
               React.createElement('path', { d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' })
             ),
@@ -35,7 +35,7 @@ function Navigation({ user, currentView, setCurrentView, onLogout }) {
           React.createElement('button', {
             onClick: () => setCurrentView('family'),
             className: `btn btn-ghost ${currentView === 'family' ? 'btn-active' : ''}`
-          }, 
+          },
             React.createElement('svg', { className: 'w-5 h-5', fill: 'currentColor', viewBox: '0 0 24 24' },
               React.createElement('path', { d: 'M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63a1.5 1.5 0 0 0-1.42-1.01c-.8 0-1.54.5-1.85 1.26l-1.73 5.2C15.24 15.65 16 17.24 16 19v3h4zm-12.5-11c.83 0 1.5-.67 1.5-1.5S8.33 8 7.5 8 6 8.67 6 9.5 6.67 11 7.5 11zm2 2c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-6.5 7h9v2h-9z' })
             ),
@@ -46,7 +46,7 @@ function Navigation({ user, currentView, setCurrentView, onLogout }) {
           React.createElement('button', {
             onClick: () => setCurrentView('admin'),
             className: `btn btn-ghost ${currentView === 'admin' ? 'btn-active' : ''}`
-          }, 
+          },
             React.createElement('svg', { className: 'w-5 h-5', fill: 'currentColor', viewBox: '0 0 24 24' },
               React.createElement('path', { d: 'M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z' })
             ),
@@ -68,7 +68,7 @@ function Navigation({ user, currentView, setCurrentView, onLogout }) {
             React.createElement('span', { className: 'text-primary font-semibold' }, '🔐 Administrateur')
           ),
           React.createElement('li', null,
-            React.createElement('button', { onClick: onLogout }, 
+            React.createElement('button', { onClick: onLogout },
               React.createElement('span', { className: 'text-error' }, '👋 Déconnexion')
             )
           )

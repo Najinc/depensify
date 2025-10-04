@@ -1,225 +1,228 @@
-# 💰 Depensify - Gestionnaire de Dépenses
+# 💰 Depensify - Gestionnaire de Dépenses Familiales
 
-Une application moderne de gestion des dépenses avec une interface colorée et attrayante, utilisant React, Express.js et MongoDB.
+Une application moderne de gestion des dépenses avec fonctionnalités familiales, utilisant React, Express.js et MongoDB.
 
 ## ✨ Fonctionnalités
 
-- 🔐 **Authentification sécurisée** avec JWT et bcrypt
-- 💳 **Gestion des dépenses** (ajout, modification, suppression)
-- 📊 **Statistiques avancées** avec graphiques interactifs
-- 🎨 **Interface moderne** avec design coloré et animations
-- 📱 **Responsive design** pour mobile et desktop
-- 🐳 **MongoDB avec Docker** pour la persistance des données
-- 🔍 **Recherche et filtrage** des dépenses
-- 📈 **Tableaux de bord** avec métriques en temps réel
+### 🔐 Authentification
+- Système d'authentification sécurisé avec JWT
+- Gestion des utilisateurs avec approbation administrateur
+- Support multi-utilisateurs avec permissions
 
-## 🚀 Installation et Démarrage
+### 👨‍👩‍👧‍👦 Gestion Familiale
+- **Création/Rejoindre une famille** avec codes d'invitation
+- **Rôles et permissions** configurables (Admin, Membre, Observateur)
+- **Gestion des membres** avec invitation et droits personnalisés
+- **Vue partagée** des dépenses familiales
+
+### 💳 Gestion des Dépenses
+- Ajout, modification et suppression de dépenses
+- Catégorisation automatique avec couleurs
+- Vue personnelle et vue familiale
+- Permissions granulaires pour l'édition
+
+### 📊 Statistiques et Visualisation
+- **Graphiques interactifs** avec Chart.js
+- **Tableaux de bord** temps réel
+- **Métriques avancées** (totaux, moyennes, tendances)
+- **Répartition par catégorie** et par membre
+
+### 🎨 Interface Moderne
+- Design responsive avec Tailwind CSS + DaisyUI
+- Thème sombre avec effets glassmorphisme
+- Animations fluides et interactions intuitives
+- Navigation adaptative selon les permissions
+
+## 🚀 Installation
 
 ### Prérequis
-
-- **Node.js** (version 14 ou supérieure)
+- **Node.js** (version 16+)
 - **Docker** et **Docker Compose**
 - **Git**
 
-### Installation Automatique
+### Démarrage Rapide
 
-#### Windows
+#### Avec Docker (Recommandé)
 ```bash
 # Cloner le projet
 git clone <votre-repo>
 cd depensify
 
-# Lancer le script de démarrage
-start.bat
+# Démarrage avec Docker
+docker-compose up -d --build
+
+# Accéder à l'application
+http://localhost:3000
 ```
 
-#### Linux/macOS
+#### Développement Local
 ```bash
-# Cloner le projet
-git clone <votre-repo>
-cd depensify
+# Installation des dépendances
+npm install
 
-# Rendre le script exécutable
-chmod +x start.sh
+# Démarrage du serveur
+npm start
 
-# Lancer le script de démarrage
-./start.sh
+# L'application sera disponible sur http://localhost:3000
 ```
 
-### Installation Manuelle
+### Configuration
 
-1. **Démarrer MongoDB avec Docker**
-   ```bash
-   docker-compose up -d
-   ```
+#### Variables d'environnement (.env)
+```env
+# Base de données
+MONGODB_URI=mongodb://localhost:27017/depensify
 
-2. **Installer les dépendances**
-   ```bash
-   npm install
-   ```
+# Sécurité
+JWT_SECRET=votre-clé-secrète-très-sécurisée
 
-3. **Configurer les variables d'environnement**
-   ```bash
-   cp .env.example .env
-   # Modifier le fichier .env selon vos besoins
-   ```
+# Serveur
+PORT=3000
+NODE_ENV=production
+```
 
-4. **Utiliser le serveur MongoDB**
-   ```bash
-   cp server_mongodb.js server.js
-   ```
+## 🏗️ Architecture
 
-5. **Démarrer l'application**
-   ```bash
-   npm start
-   ```
+### Backend (Node.js + Express)
+```
+server/
+├── models/           # Modèles MongoDB (User, Family, Expense)
+├── routes/           # Routes API modulaires
+├── middleware/       # Authentification et permissions
+└── utils/           # Utilitaires et helpers
+```
 
-## 🌐 Accès aux Services
+### Frontend (React sans build)
+```
+public/
+├── components/       # Composants réutilisables
+├── views/           # Vues principales (Expenses, Family, Admin)
+├── style.css        # Styles personnalisés
+└── index.html       # Point d'entrée
+```
 
-- **Application principale** : http://localhost:3000
-- **MongoDB Express** (interface web) : http://localhost:8081
-- **MongoDB** (base de données) : localhost:27017
+## 🔑 Utilisation
 
-## 🎨 Nouvelles Fonctionnalités de Design
+### Premier Démarrage
+1. **Inscription** : Le premier utilisateur devient automatiquement administrateur
+2. **Création de famille** : Une famille est créée automatiquement
+3. **Gestion des membres** : Inviter d'autres utilisateurs avec des codes
 
-### Interface Colorée
-- Gradient de fond dynamique (bleu → violet)
-- Cartes avec effet de verre (glassmorphism)
-- Animations fluides et transitions
-- Ombres et effets 3D
+### Gestion des Permissions
+- **Admin** : Toutes les permissions (édition, suppression, gestion membres)
+- **Membre** : Gestion de ses propres dépenses + vue familiale
+- **Observateur** : Consultation uniquement
 
-### Statistiques Visuelles
-- Cartes statistiques colorées avec icônes
-- Graphiques en donut interactifs
-- Couleurs par catégorie de dépenses
-- Métriques en temps réel
+### Flux de Travail
+1. **Connexion** → Vue tableau de bord
+2. **Ajout de dépenses** → Catégorisation automatique
+3. **Vue familiale** → Consultation des dépenses partagées
+4. **Gestion famille** → Invitation et gestion des membres
 
-### Expérience Utilisateur
-- Formulaires avec validation visuelle
-- Boutons avec effets hover
-- Design responsive pour mobile
-- Chargement optimisé
+## 🐳 Docker
 
-## 📊 Architecture Technique
+### Services Inclus
+- **App** : Serveur Node.js (port 3000)
+- **MongoDB** : Base de données (port 27017)
+- **Mongo Express** : Interface d'administration DB (port 8081)
 
-### Frontend
-- **React 18** avec hooks modernes
-- **Chart.js** pour les graphiques
-- **CSS moderne** avec animations et gradients
-- **Responsive design** avec CSS Grid et Flexbox
+### Commandes Utiles
+```bash
+# Démarrage
+docker-compose up -d
+
+# Logs
+docker-compose logs -f
+
+# Redémarrage
+docker-compose restart
+
+# Arrêt et nettoyage
+docker-compose down -v
+```
+
+## 🔧 API Endpoints
+
+### Authentification
+- `POST /api/register` - Inscription
+- `POST /api/login` - Connexion
+- `GET /api/me` - Informations utilisateur
+
+### Dépenses
+- `GET /api/expenses` - Liste des dépenses personnelles
+- `POST /api/expenses` - Créer une dépense
+- `PUT /api/expenses/:id` - Modifier une dépense
+- `DELETE /api/expenses/:id` - Supprimer une dépense
+
+### Famille
+- `GET /api/family/details` - Détails de la famille
+- `POST /api/family/create` - Créer une famille
+- `POST /api/family/join` - Rejoindre avec code
+- `GET /api/family/expenses` - Dépenses familiales
+- `PUT /api/family/member/:id/role` - Modifier rôle membre
+
+## 🛠️ Technologies
 
 ### Backend
-- **Express.js** pour l'API REST
-- **Mongoose** pour MongoDB ODM
-- **JWT** pour l'authentification
-- **bcrypt** pour le hashage des mots de passe
+- **Node.js** + **Express.js** - Serveur web
+- **MongoDB** + **Mongoose** - Base de données
+- **JWT** + **bcrypt** - Authentification sécurisée
+- **Docker** - Containerisation
 
-### Base de Données
-- **MongoDB** avec index optimisés
-- **Docker** pour l'environnement de développement
-- **Mongo Express** pour l'administration
+### Frontend
+- **React** (CDN) - Interface utilisateur
+- **Tailwind CSS** + **DaisyUI** - Design system
+- **Chart.js** - Graphiques interactifs
+- **Vanilla JS** - Logique métier
 
-## 🔧 Configuration
+## 📝 Développement
 
-### Variables d'Environnement (.env)
-```env
-# Application
-NODE_ENV=development
-PORT=3000
-JWT_SECRET=votre_secret_jwt
+### Structure du Code
+- **Modularité** : Composants et routes séparés
+- **Permissions** : Middleware de vérification des droits
+- **Validation** : Contrôles côté client et serveur
+- **Optimisation** : Index MongoDB et mise en cache
 
-# MongoDB
-MONGODB_URI=mongodb://depensify_user:depensify_password_2024@localhost:27017/depensify?authSource=depensify
-MONGODB_HOST=localhost
-MONGODB_PORT=27017
-MONGODB_DATABASE=depensify
-```
+### Bonnes Pratiques
+- Code documenté avec JSDoc
+- Gestion d'erreurs centralisée
+- Logs structurés pour le debugging
+- Validation des entrées utilisateur
 
-### Docker Compose
-Le fichier `docker-compose.yml` configure :
-- **MongoDB 7.0** avec authentification
-- **Mongo Express** pour l'interface web
-- **Volumes persistants** pour les données
-- **Réseau isolé** pour la sécurité
+## 🚨 Sécurité
 
-## 📱 Catégories de Dépenses
+- **Authentification JWT** avec expiration
+- **Hashage bcrypt** des mots de passe
+- **Validation des permissions** à chaque requête
+- **Sanitisation** des entrées utilisateur
+- **CORS** configuré pour la production
 
-- 🍽️ Alimentation
-- 🚗 Transport  
-- 🍕 Restauration
-- 🎮 Divertissement
-- 🏥 Santé
-- 🛍️ Shopping
-- 📚 Éducation
-- 📦 Divers
+## 🆘 Dépannage
 
-## 🛠️ Commandes Utiles
+### Problèmes Courants
 
+#### MongoDB non accessible
 ```bash
-# Démarrage en mode développement
-npm run dev
-
-# Gestion Docker
-npm run docker:up      # Démarrer MongoDB
-npm run docker:down    # Arrêter MongoDB
-npm run docker:logs    # Voir les logs
-
-# Base de données
-docker exec -it depensify_mongodb mongosh
-```
-
-## 🎯 Améliorations Récentes
-
-### Suppression du Système de Chat
-- ❌ Suppression complète des fonctionnalités de chat
-- ❌ Retrait des WebSockets et Socket.IO
-- ❌ Suppression des systèmes d'amis et famille
-- ✅ Code plus léger et focalisé sur les dépenses
-
-### Design Modernisé
-- ✅ Interface colorée avec dégradés
-- ✅ Effet glassmorphism sur les cartes
-- ✅ Animations CSS fluides
-- ✅ Responsive design amélioré
-
-### Migration MongoDB
-- ✅ Remplacement du stockage JSON
-- ✅ Base de données MongoDB avec Docker
-- ✅ Modèles Mongoose optimisés
-- ✅ Index pour les performances
-
-## 🐛 Dépannage
-
-### MongoDB ne démarre pas
-```bash
-# Vérifier l'état des conteneurs
+# Vérifier le service
 docker-compose ps
-
-# Redémarrer MongoDB
-docker-compose restart mongodb
-
-# Voir les logs
 docker-compose logs mongodb
 ```
 
-### Erreur de connexion
-1. Vérifier que MongoDB est en cours d'exécution
-2. Vérifier les ports (3000, 27017, 8081)
-3. Vérifier les variables d'environnement
-4. Redémarrer l'application
+#### Erreur de permissions
+- Vérifier que l'utilisateur appartient à une famille
+- Contrôler les rôles et permissions dans l'interface admin
 
-## 🤝 Contribution
+#### Performance lente
+- Vérifier les index MongoDB
+- Optimiser les requêtes avec des filtres
 
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/nouvelle-fonctionnalite`)
-3. Commit les modifications (`git commit -am 'Ajout nouvelle fonctionnalité'`)
-4. Push vers la branche (`git push origin feature/nouvelle-fonctionnalite`)
-5. Créer une Pull Request
+## 📞 Support
+
+Pour toute question ou problème :
+1. Consulter les logs : `docker-compose logs`
+2. Vérifier la configuration des variables d'environnement
+3. Redémarrer les services : `docker-compose restart`
 
 ## 📄 Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
----
-
-🎉 **Profitez de votre nouvelle application Depensify avec MongoDB !**
+MIT - Libre d'utilisation et de modification

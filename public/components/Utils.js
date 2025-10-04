@@ -12,10 +12,10 @@
 function showToast(message, type = 'info', duration = 3000) {
   const toast = document.createElement('div');
   toast.className = 'toast toast-top toast-end z-50';
-  
+
   const alertClass = {
     success: 'alert-success',
-    error: 'alert-error', 
+    error: 'alert-error',
     warning: 'alert-warning',
     info: 'alert-info'
   }[type] || 'alert-info';
@@ -25,9 +25,9 @@ function showToast(message, type = 'info', duration = 3000) {
       <span>${message}</span>
     </div>
   `;
-  
+
   document.body.appendChild(toast);
-  
+
   setTimeout(() => {
     if (toast.parentNode) {
       toast.remove();

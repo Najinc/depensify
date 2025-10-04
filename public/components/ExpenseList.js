@@ -5,7 +5,7 @@
 // Couleurs par catégorie
 const CATEGORY_COLORS = {
   'Alimentation': '#22c55e',
-  'Transport': '#3b82f6', 
+  'Transport': '#3b82f6',
   'Restauration': '#f59e0b',
   'Divertissement': '#ec4899',
   'Santé': '#ef4444',
@@ -67,15 +67,15 @@ function ExpenseItem({ expense, viewMode, canEdit, onEdit, onDelete }) {
 /**
  * Composant liste des dépenses avec filtres
  */
-function ExpensesList({ 
-  expenses, 
-  viewMode, 
-  searchQuery, 
-  filterCategory, 
+function ExpensesList({
+  expenses,
+  viewMode,
+  searchQuery,
+  filterCategory,
   familyPermissions,
   user,
-  onEdit, 
-  onDelete 
+  onEdit,
+  onDelete
 }) {
   // Fonction pour vérifier si l'utilisateur peut éditer une dépense
   function canEditExpense(expense) {
@@ -97,12 +97,12 @@ function ExpensesList({
 
   // Filtrage des dépenses
   const filteredExpenses = expenses.filter(expense => {
-    const matchesSearch = !searchQuery || 
+    const matchesSearch = !searchQuery ||
       expense.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       expense.category.toLowerCase().includes(searchQuery.toLowerCase());
-    
+
     const matchesCategory = !filterCategory || expense.category === filterCategory;
-    
+
     return matchesSearch && matchesCategory;
   });
 

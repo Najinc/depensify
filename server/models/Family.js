@@ -123,7 +123,7 @@ const familySchema = new mongoose.Schema({
 /**
  * Génère un code d'invitation unique à 6 caractères
  */
-familySchema.methods.generateInviteCode = function() {
+familySchema.methods.generateInviteCode = function () {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let result = '';
   for (let i = 0; i < 6; i++) {
